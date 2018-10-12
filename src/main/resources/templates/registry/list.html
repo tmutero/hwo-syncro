@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:include="fragments/header"></th:block>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Council Registry Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>DB Name</th>
+                                <th>DB Username</th>
+                                <th>Action</th>
+                                </thead>
+                                <tbody>
+                                <tr  th:each="registry :${registryCredentialsList}">
+
+                                    <td th:text="${registry.name}"></td>
+                                    <td th:text="${registry.dbUserName}"></td>
+
+                                    <td><a th:href="@{'/registry/sync-registry/'+ ${registry.name}}" class="btn btn-info custom-width">Sync</a>
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer ::footer"></div>
