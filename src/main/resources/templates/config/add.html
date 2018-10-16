@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<th:block th:include="fragments/header"></th:block>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Configurations Details</h4>
+                    </div>
+
+
+                <div class="col-md-2"></div>
+                <div style="alignment: center" class="col-md-8">
+
+                    <form  autocomplete="off"  th:object="${generalParameter}" method="post" th:action="@{/config/save}"
+                           role="form">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="form-group">
+                            <textarea class="form-control"type="text" id="disclamer" name="disclamer" th:field="*{disclamer}" aria-describedby="emailHelp" placeholder="Enter disclamer notes"/>
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="percentageAccuracy" id="percentageAccuracy" name="percentageAccuracy" th:field="*{percentageAccuracy}" aria-describedby="emailHelp" placeholder="Enter percentageAccuracy">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Council </label>
+                            <select class="form-control" th:field="*{council}">
+                                <option th:value="ahpcz">AHPCZ</option>
+                                <option th:value="ncz">NCZ</option>
+                                <option th:value="ehpcz">EPCZ</option>
+                                <option th:value="pcz">HPCZ</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer ::footer"></div>

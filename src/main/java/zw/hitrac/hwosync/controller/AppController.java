@@ -9,10 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.*;
+import zw.hitrac.hwosync.model.RegistryCredentials;
 import zw.hitrac.hwosync.model.User;
 import zw.hitrac.hwosync.model.UserProfile;
 import zw.hitrac.hwosync.model.UserProfileType;
@@ -20,6 +22,7 @@ import zw.hitrac.hwosync.service.UserProfileService;
 import zw.hitrac.hwosync.service.UserService;
 
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -49,7 +52,7 @@ public class AppController {
    */
   @RequestMapping(value = {"/listUsers"}, method = RequestMethod.GET)
   public String listUsers (ModelMap model) {
-    List<User> users = userService.findAll();
+    List<User> users = userService.findAll().get();
     model.addAttribute("users", users);
     model.addAttribute("loggedinuser", getPrincipal());
     return "user/list";
@@ -101,22 +104,29 @@ public class AppController {
   }
 
 
-  /**
-   * This method will provide the medium to update an existing user.
-   */
-
-
 
 
   /**
    * This method will delete an user by it's SSOID value.
    */
-//  @RequestMapping(value = {"/delete-user-{ssoId}"}, method = RequestMethod.GET)
-//  public String deleteUser (@PathVariable String ssoId) {
-//    userService.deleteUserBySSO(ssoId);
+//  @RequestMapping(value = {"/delete-user/"}, method = RequestMethod.GET)
+//  public String deleteUser (@PathVariable Long id) {
+//      User user=userService.findOne(id);
+//   userService.remove(user);
 //    return "redirect:/list";
 //  }
+//
 
+    @RequestMapping(value = {"/delete-user/{id}"}, method = RequestMethod.GET)
+
+    public String deleteUser(Model model, @PathVariable("id") Long id) {
+
+
+        userService.delete(id);
+        return "redirect:/registry/listUsers";
+
+
+    }
 
   /**
    * This method will provide UserProfile list to templates

@@ -9,4 +9,7 @@ import zw.hitrac.hwosync.model.GeneralParameter;
 
 @Repository
 public interface GeneralParametersRepository extends CrudRepository<GeneralParameter, Long> {
+
+
+    GeneralParameter findByCouncil (String council);
 }

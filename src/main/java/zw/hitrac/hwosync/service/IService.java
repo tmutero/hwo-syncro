@@ -1,16 +1,20 @@
 package zw.hitrac.hwosync.service;
 
-import java.io.Serializable;
 import java.util.List;
-
+import java.util.Optional;
 
 /**
- * Created by tmutero
+ * Created by clive on 9/14/15.
  */
-public interface IService <T extends Serializable> extends Serializable{
-    public T save(T t);
-    public List<T> findAll();
-    public T findOne(Long id);
+public interface IService<T> {
+
+    T save(T t);
+
+    Optional<T> findOne(Long id);
+
+    Optional<List<T>> findAll();
+
+    void delete(Long id);
+
     public Boolean checkDuplicate(T t);
-    public void remove(T t);
 }

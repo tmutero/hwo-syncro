@@ -87,7 +87,6 @@ public class ProviderFactory {
                     credential.setNumber(providerNumber);
                     credential.setIssueDate(duration.getStartDate());
                     credential.setRenewalDate(duration.getEndDate());
-                    System.out.println("duration.getEndDate()==" + duration.getEndDate());
                    credential.setDirectoryOccupation(dO);
 
 

@@ -18,9 +18,20 @@
                             <table class="table">
                                 <thead class=" text-primary">
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th>Roles</th>
                                 </thead>
                                 <tbody>
+
+                                <tr  th:each="user :${users}">
+
+                                    <td th:text="${user.getFirstName()}"></td>
+                                    <td th:text="${user.getEmail()}"></td>
+                                    <td><a th:href="@{'/delete-user/'+ ${user.id}}" class="btn btn-info custom-width">Delete</a>
+                                    </td>
+
+
+                                </tr>
 
                                 </tbody>
                             </table>

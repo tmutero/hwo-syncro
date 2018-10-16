@@ -11,10 +11,17 @@
                 <div></div>
 
 
-
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Config Reistry Details</h4>
+
+                    </div>
+
+                    <div style="padding-left: 80%">
+                        <a th:href="@{'/config/add/'}">
+                            <i class="fa fa-fw fa-user"></i>New Config</a>
+
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -25,13 +32,28 @@
                                 <th>Action</th>
                                 </thead>
                                 <tbody>
-                                <tr  th:each="generalParameter :${generalParameters}">
-
-                                    <td th:text="${generalParameter.disclamer}"></td>
-                                    <td th:text="${generalParameter.percentageAccuracy}"></td>
 
 
+                                <tr>
+                                    <div id="success"></div>
+
+                                    <td id="disclamer" th:value="${generalParameter.disclamer}" th:text="${generalParameter.disclamer}"></td>
+                                    <td id="percentageAccuracy" th:value="${generalParameter.percentageAccuracy}"th:text="${generalParameter.percentageAccuracy}"></td>
+                                    <td><a th:href="@{'/config/delete/'+ ${generalParameter.id}}"
+                                           class="btn btn-danger custom-width">Delete</a>
+                                    </td>
+
+                                    <td><a th:href="@{'/config/update/'+ ${generalParameter.id}}"
+                                           class="btn btn-info custom-width">Update</a>
+                                    </td>
+
+
+                                    <td class='text-center'><a href='#' th:id="${generalParameter.id}"    class="aprove"><span
+                                            class='glyphicon glyphicon-user' aria-hidden='true'>HWO Send</span></a>
+
+                                    </td>
                                 </tr>
+                                <input type="hidden" id="shortName" th:value="${generalParameter.council}">
 
                                 </tbody>
                             </table>
@@ -43,6 +65,43 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".aprove").click(function () {
+
+            var element = $(this);
+            var appid = element.attr("id");
+            var id = appid;
+            var disclamer=document.getElementById("disclamer").innerHTML;
+            var percentageAccuracy=document.getElementById("percentageAccuracy").innerHTML;
+            var shortName=$("#shortName").val();
+
+
+
+            if (confirm("Are you sure you want to update to HWO Portal?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8084/hwo-portal/hwo/rest/directoryDisclamer/",
+                    data: {shortName:shortName,disclamer:disclamer,percentageAccuracy:percentageAccuracy},
+                    success: function () {
+                        $("#success").html("<div class=\"alert alert-info\">\n" +
+                            "                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                            "                      <i class=\"material-icons\">close</i>\n" +
+                            "                    </button>\n" +
+                            "                    <span>\n" +
+                            "                      <b> Data Successfully - </b> added to HWO Portal \</span>\n" +
+                            "                  </div>");
+                    }
+                });
+                $(this).parent().parent().fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }
+            return false;
+        });
+    });
+</script>
 
 
 <div th:replace="fragments/footer ::footer"></div>

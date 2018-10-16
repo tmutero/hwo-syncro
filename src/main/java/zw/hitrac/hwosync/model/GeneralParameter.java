@@ -1,6 +1,8 @@
 package zw.hitrac.hwosync.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -9,6 +11,15 @@ public class GeneralParameter extends BaseModel {
 
     private String disclamer;
     private Long percentageAccuracy;
+    private String council;
+
+    public String getCouncil() {
+        return council;
+    }
+
+    public void setCouncil(String council) {
+        this.council = council;
+    }
 
     public String getDisclamer() {
         return disclamer;

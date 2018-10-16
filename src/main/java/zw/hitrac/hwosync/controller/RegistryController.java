@@ -43,22 +43,13 @@ public class RegistryController {
     public String listRegistries(ModelMap model) {
 
         List<RegistryCredentials> registryCredentialsList = registryCredentialsService.findAll();
+        RegistryCredentials registryCredentials = new RegistryCredentials();
+        model.addAttribute("registryCredentials", registryCredentials);
         model.addAttribute("registryCredentialsList", registryCredentialsList);
         model.addAttribute("loggedinuser", getPrincipal());
         return "registry/list";
     }
 
-    /**
-     * This method will provide the medium to add a new registry.
-     */
-    @RequestMapping(value = {"/newregistry"}, method = RequestMethod.GET)
-    public String newRegistry(ModelMap model) {
-        RegistryCredentials registryCredentials = new RegistryCredentials();
-        model.addAttribute("registryCredentials", registryCredentials);
-        model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "registryRegistration";
-    }
 
     /**
      * This method will be called on form submission, handling POST request for
@@ -77,8 +68,9 @@ public class RegistryController {
 
         model.addAttribute("success", "Registry " + registryCredentials.getName() + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
-        //return "success";
-        return "registryRegistrationSuccess";
+
+        return  "redirect:/registry/list";
+
     }
 
     /**

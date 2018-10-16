@@ -8,7 +8,7 @@ import zw.hitrac.hwosync.model.UserProfile;
 import java.util.List;
 
 
-public interface UserProfileService extends IService<UserProfile> {
+public interface UserProfileService extends GenericService<UserProfile> {
 
 
 

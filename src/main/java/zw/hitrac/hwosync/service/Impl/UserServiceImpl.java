@@ -10,36 +10,41 @@ import zw.hitrac.hwosync.service.UserService;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+ @Autowired
+ private UserRepository userRepository;
 
-@Autowired
-private UserRepository userRepository;
   @Override
   public User save(User user) {
     return userRepository.save(user);
   }
 
   @Override
-  public List<User> findAll() {
-    return (List<User>)userRepository.findAll();
+  public Optional<User> findOne(Long id) {
+
+    return Optional.ofNullable(userRepository.findById(id).get());
+
   }
 
   @Override
-  public User findOne(Long id) {
-    return null;
+  public Optional<List<User>> findAll() {
+    return Optional.ofNullable((List<User>) userRepository.findAll());
+  }
+
+  @Override
+  public void delete(Long id) {
+
+    User user= userRepository.findById(id).get();
+    userRepository.delete(user);
   }
 
   @Override
   public Boolean checkDuplicate(User user) {
     return null;
-  }
-
-  @Override
-  public void remove(User user) {
-
   }
 }

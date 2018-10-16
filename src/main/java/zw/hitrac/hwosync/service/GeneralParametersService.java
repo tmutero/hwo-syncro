@@ -5,5 +5,6 @@ import zw.hitrac.hwosync.model.GeneralParameter;
 
 public interface GeneralParametersService extends IService<GeneralParameter> {
 
+    GeneralParameter findByCouncil(String council);
 
 }
